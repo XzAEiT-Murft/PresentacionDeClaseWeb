@@ -1,0 +1,5 @@
+# ¡La carpeta más importante a ignorar!
+node_modules
+
+# Archivo de variables de entorno (¡Contiene secretos!)
+.env
