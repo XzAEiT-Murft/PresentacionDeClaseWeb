@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peli+ | Catálogo</title>
+    <!-- Fuentes de letras de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- CDN de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body data-bs-theme="dark">
+
+    <nav class="navbar navbar-expand-md bg-body-tertiary top-navbar fixed-top">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo.png" alt="Peli+ Logo" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDesktop">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDesktop">
+                <div class="d-flex align-items-center ms-auto">
+                    <form class="d-flex me-3" action="search.html" method="GET">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar..."
+                            aria-label="Buscar" style="width: 300px;">
+                        <a href="search.html" class="btn btn-outline-secondary">
+                            <i class="fa-solid fa-filter"></i>
+                        </a>
+                    </form>
+
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-user-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                            <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Catálogo de Películas</h1>
+
+        <div id="movie-catalog" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-dark bg-dark bottom-navbar fixed-bottom">
+        <a class="nav-link text-center text-white" href="index.html">
+            <i class="fa-solid fa-house" style="font-size: 1.2rem;"></i>
+            <small class="d-block">Inicio</small>
+        </a>
+        <a class="nav-link text-center text-white" href="search.html">
+            <i class="fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
+            <small class="d-block">Buscar</small>
+        </a>
+        <a class="nav-link text-center text-white" href="#">
+            <i class="fa-solid fa-user" style="font-size: 1.2rem;"></i>
+            <small class="d-block">Cuenta</small>
+        </a>
+    </nav>
+
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/apiService.js"></script>
+    <script src="js/catalogo.js"></script>
+</body>
+
+</html>

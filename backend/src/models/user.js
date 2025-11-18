@@ -21,12 +21,17 @@ const userSchema = new Schema({
   status: {
     type: String,
     enum: ['pending', 'active'], 
-    default: 'pending' // Todos los usuarios nuevos empiezan como 'pending'
+    default: 'pending'
   },
   role: {
     type: Schema.Types.ObjectId,
     ref: 'Role'
   },
+  // --- ¡NUEVO CAMPO "MI LISTA"! ---
+  myList: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Media' // Un array de IDs que apuntan a 'Media'
+  }],
   createdAt: {
     type: Date,
     default: Date.now
