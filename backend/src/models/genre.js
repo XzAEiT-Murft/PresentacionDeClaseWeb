@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Géneros --- */
 const genreSchema = new Schema({
   name: {
     type: String,
@@ -10,5 +11,4 @@ const genreSchema = new Schema({
   }
 });
 
-// El modelo se llamará 'Genre'
 module.exports = mongoose.model('Genre', genreSchema);

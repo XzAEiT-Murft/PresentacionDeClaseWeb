@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Episodios (Series) --- */
 const episodeSchema = new Schema({
   title: {
     type: String,
@@ -10,7 +11,7 @@ const episodeSchema = new Schema({
     type: String,
     required: true
   },
-  video_url: { // El MP4 del episodio
+  video_url: {
     type: String,
     required: true
   },
@@ -22,11 +23,10 @@ const episodeSchema = new Schema({
     type: Number,
     required: true
   },
-  // --- La Conexión ---
-  // Cada episodio "pertenece" a una serie
+  /* --- Relación con la Serie --- */
   mediaId: {
     type: Schema.Types.ObjectId,
-    ref: 'Media', // Apunta al modelo 'Media'
+    ref: 'Media', 
     required: true
   }
 });

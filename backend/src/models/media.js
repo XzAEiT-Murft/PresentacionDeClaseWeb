@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Películas y Series --- */
 const mediaSchema = new Schema({
   title: {
     type: String,
@@ -11,7 +12,7 @@ const mediaSchema = new Schema({
     type: String,
     required: true
   },
-  poster_image_url: { // Carátula
+  poster_image_url: {
     type: String,
     required: true
   },
@@ -19,20 +20,17 @@ const mediaSchema = new Schema({
     type: Number,
     required: true
   },
-  // --- ¡NUEVA LÓGICA! ---
   type: {
     type: String,
-    enum: ['movie', 'series'], // Solo puede ser 'película' o 'serie'
+    enum: ['movie', 'series'], 
     required: true
   },
-  // --- Lógica de Película ---
-  video_url: { // El MP4, solo si es 'movie'
+  /* --- Solo para Películas --- */
+  video_url: { 
     type: String,
-    // No es 'required' porque las series no lo tienen
   },
-  // --- Lógica de Serie ---
-  // (Las series se conectan a los Episodios, no guardan nada aquí)
-  // -------------------------
+  
+  /* --- Relaciones --- */
   genres: [{
     type: Schema.Types.ObjectId,
     ref: 'Genre'

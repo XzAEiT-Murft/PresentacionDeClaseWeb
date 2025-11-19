@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Códigos Temporales --- */
 const verificationCodeSchema = new Schema({
   code: {
     type: String,
     required: true
   },
-  // A qué usuario le pertenece este código
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -15,9 +15,7 @@ const verificationCodeSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    // --- LA MAGIA DE LA EXPIRACIÓN ---
-    // Esto crea un índice TTL. MongoDB borrará automáticamente
-    // este documento después de 300 segundos (5 minutos).
+    /* --- Expiración Automática (5 min) --- */
     expires: 300 
   }
 });

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Usuario --- */
 const userSchema = new Schema({
   name: {
     type: String,
@@ -27,10 +28,11 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Role'
   },
-  // --- ¡NUEVO CAMPO "MI LISTA"! ---
+  
+  /* --- Lista de Favoritos --- */
   myList: [{
     type: Schema.Types.ObjectId,
-    ref: 'Media' // Un array de IDs que apuntan a 'Media'
+    ref: 'Media' 
   }],
   createdAt: {
     type: Date,

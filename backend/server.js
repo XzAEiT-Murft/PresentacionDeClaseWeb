@@ -3,57 +3,48 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
 
-// --- Importar Modelos y Rutas ---
-const mediaRoutes = require('./src/routes/mediaRoutes'); // <-- La ruta correcta
+/* --- Imports --- */
+const mediaRoutes = require('./src/routes/mediaRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const Role = require('./src/models/role.js');
-const Genre = require('./src/models/genre.js'); // <-- Ahora sí lo encontrará
+const Genre = require('./src/models/genre.js'); 
 
-// Cargar variables de entorno
 dotenv.config();
-
-// Inicializar Express
 const app = express();
 
-// --- Middlewares ---
+/* --- Middlewares --- */
 app.use(cors()); 
-app.use(express.json());
+app.use(express.json()); 
 
-// --- Rutas de la API ---
-app.use('/api/media', mediaRoutes); // <-- Esta es la ruta principal
+/* --- Rutas --- */
+app.use('/api/media', mediaRoutes);
 app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('¡El servidor Peli+ API está funcionando!');
 });
 
-// --- Función para Inicializar Roles ---
+/* --- Inicializadores --- */
 async function initializeRoles() {
   try {
     const count = await Role.countDocuments();
-    if (count > 0) {
-      console.log('Roles ya inicializados en la BD.');
-      return;
-    }
+    if (count > 0) return;
+    
     console.log('Creando roles por defecto...');
     await Promise.all([
       new Role({ name: 'visualizador' }).save(),
       new Role({ name: 'admin' }).save()
     ]);
-    console.log('Roles [visualizador, admin] creados.');
+    console.log('Roles creados.');
   } catch (error) {
-    console.error('Error al inicializar roles:', error.message);
+    console.error('Error roles:', error.message);
   }
 }
 
-// --- Función para Inicializar Géneros ---
 async function initializeGenres() {
   try {
     const count = await Genre.countDocuments();
-    if (count > 0) {
-      console.log('Géneros ya inicializados en la BD.');
-      return;
-    }
+    if (count > 0) return;
     
     console.log('Creando géneros por defecto...');
     const predefinedGenres = [
@@ -65,13 +56,12 @@ async function initializeGenres() {
     ];
     await Genre.insertMany(predefinedGenres);
     console.log(`${predefinedGenres.length} géneros creados.`);
-
   } catch (error) {
-    console.error('Error al inicializar géneros:', error.message);
+    console.error('Error géneros:', error.message);
   }
 }
 
-// --- Función de Arranque ---
+/* --- Arranque --- */
 async function startServer() {
   try {
     await connectDB(); 
@@ -84,10 +74,9 @@ async function startServer() {
     });
 
   } catch (error) {
-    console.error('Fallo al arrancar el servidor:', error.message);
+    console.error('Fallo al arrancar:', error.message);
     process.exit(1); 
   }
 }
 
-// --- Arrancar todo ---
 startServer();

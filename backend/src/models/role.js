@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+/* --- Esquema de Roles --- */
 const roleSchema = new Schema({
   name: {
     type: String,
@@ -10,4 +11,4 @@ const roleSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('role', roleSchema);
+module.exports = mongoose.model('Role', roleSchema);
