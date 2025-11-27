@@ -1,183 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peli+ | Acceso</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            /* Fondo con imagen oscura para dar ambiente de cine */
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('img/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding-top: 0 !important; /* Sobrescribimos el padding del body principal */
-        }
-        .auth-card {
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: 40px;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .form-control {
-            background-color: #333;
-            border: none;
-            color: white;
-        }
-        .form-control:focus {
-            background-color: #444;
-            color: white;
-            border-color: #e50914;
-            box-shadow: none;
-        }
-        .btn-primary {
-            background-color: #e50914; /* Rojo Netflix */
-            border: none;
-            font-weight: bold;
-        }
-        .btn-primary:hover {
-            background-color: #b20710;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeliPlus - Acceso</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <header class="topbar">
+    <div class="logo">PeliPlus</div>
+    <nav class="actions">
+      <a class="secondary" href="./index.html">Volver al catálogo</a>
+    </nav>
+  </header>
 
-    <!-- Logo Flotante -->
-    <div style="position: absolute; top: 25px; left: 40px;">
-        <a href="index.html">
-            <img src="img/logo.png" alt="Peli+" height="45">
-        </a>
-    </div>
+  <main class="auth-container">
+    <section class="card">
+      <h2>Iniciar sesión</h2>
+      <form id="login-form" class="form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" name="email" required>
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" type="password" name="password" required>
+        <button type="submit" class="primary">Entrar</button>
+        <p id="login-error" class="error"></p>
+      </form>
+    </section>
 
-    <div class="auth-card">
-        
-        <!-- 1. VISTA LOGIN -->
-        <div id="login-view">
-            <h2 class="mb-4 fw-bold">Inicia Sesión</h2>
-            <form id="loginForm">
-                <div class="mb-3">
-                    <input type="email" class="form-control py-3" id="loginEmail" placeholder="Email" required>
-                </div>
-                <div class="mb-4">
-                    <input type="password" class="form-control py-3" id="loginPassword" placeholder="Contraseña" required>
-                </div>
-                <div id="loginError" class="text-danger mb-3 small text-center" style="display: none;"></div>
-                <button type="submit" class="btn btn-primary w-100 py-2">Iniciar sesión</button>
-            </form>
-            <div class="mt-4 text-secondary small">
-                ¿Primera vez en Peli+? <a href="#" class="text-white text-decoration-none ms-1" onclick="showView('register')">Suscríbete ahora.</a>
-            </div>
-        </div>
+    <section class="card">
+      <h2>Registrarse</h2>
+      <form id="register-form" class="form">
+        <label for="reg-username">Usuario</label>
+        <input id="reg-username" type="text" name="username" required>
+        <label for="reg-email">Email</label>
+        <input id="reg-email" type="email" name="email" required>
+        <label for="reg-password">Contraseña</label>
+        <input id="reg-password" type="password" name="password" required>
+        <button type="submit" class="secondary">Crear cuenta</button>
+        <p id="register-error" class="error"></p>
+      </form>
+    </section>
+  </main>
 
-        <!-- 2. VISTA REGISTRO -->
-        <div id="register-view" style="display: none;">
-            <h2 class="mb-4 fw-bold">Crear Cuenta</h2>
-            <form id="registerForm">
-                <div class="mb-3">
-                    <input type="text" class="form-control py-3" id="regName" placeholder="Nombre Completo" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control py-3" id="regEmail" placeholder="Email" required>
-                </div>
-                <div class="mb-4">
-                    <input type="password" class="form-control py-3" id="regPassword" placeholder="Contraseña" required>
-                </div>
-                <div id="regError" class="text-danger mb-3 small text-center" style="display: none;"></div>
-                <button type="submit" class="btn btn-primary w-100 py-2">Registrarse</button>
-            </form>
-            <div class="mt-4 text-secondary small">
-                ¿Ya tienes cuenta? <a href="#" class="text-white text-decoration-none ms-1" onclick="showView('login')">Inicia Sesión.</a>
-            </div>
-        </div>
-
-        <!-- 3. VISTA VERIFICACIÓN -->
-        <div id="verify-view" style="display: none;">
-            <h2 class="mb-3 fw-bold">Verificar Email</h2>
-            <p class="text-secondary small mb-4">Hemos enviado un código a tu correo.</p>
-            <form id="verifyForm">
-                <div class="mb-4">
-                    <input type="text" class="form-control py-3 text-center fs-4" id="verifyCode" placeholder="000000" maxlength="6" required>
-                </div>
-                <div id="verifyError" class="text-danger mb-3 small text-center" style="display: none;"></div>
-                <button type="submit" class="btn btn-success w-100 py-2">Verificar</button>
-            </form>
-            <div class="mt-3 text-center small">
-                 <a href="#" class="text-secondary text-decoration-none" onclick="showView('login')">Volver al login</a>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="js/apiService.js"></script>
-    <script>
-        // --- Lógica de la Página ---
-        let emailPending = '';
-
-        function showView(viewName) {
-            document.getElementById('login-view').style.display = 'none';
-            document.getElementById('register-view').style.display = 'none';
-            document.getElementById('verify-view').style.display = 'none';
-            
-            document.getElementById(`${viewName}-view`).style.display = 'block';
-        }
-
-        // Login
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
-            const errDiv = document.getElementById('loginError');
-            
-            const res = await login(email, pass);
-            if(res.error) {
-                errDiv.innerText = res.error;
-                errDiv.style.display = 'block';
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
-
-        // Registro
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const pass = document.getElementById('regPassword').value;
-            const errDiv = document.getElementById('regError');
-            
-            const res = await register(name, email, pass);
-            if(res.error) {
-                errDiv.innerText = res.error;
-                errDiv.style.display = 'block';
-            } else {
-                emailPending = email;
-                showView('verify');
-            }
-        });
-
-        // Verificación
-        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const code = document.getElementById('verifyCode').value;
-            const errDiv = document.getElementById('verifyError');
-
-            const res = await verifyAccount(emailPending, code); // Asegúrate de tener verifyAccount en apiService.js
-            if(res.error) {
-                errDiv.innerText = res.error;
-                errDiv.style.display = 'block';
-            } else {
-                alert('Cuenta verificada con éxito. Por favor inicia sesión.');
-                showView('login');
-            }
-        });
-    </script>
+  <script src="./auth.js"></script>
 </body>
 </html>

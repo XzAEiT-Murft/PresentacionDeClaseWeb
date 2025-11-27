@@ -1,51 +1,57 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./src/config/db');
 
-/* --- Imports --- */
-const mediaRoutes = require('./src/routes/mediaRoutes');
-const authRoutes = require('./src/routes/authRoutes');
-const Role = require('./src/models/role.js');
-const Genre = require('./src/models/genre.js'); 
+// Modelos para seed inicial
+const Role = require('./models/Role');
+const Genre = require('./models/Genre');
+
+// Rutas
+const authRoutes = require('./routes/auth.routes');
+const movieRoutes = require('./routes/movie.routes');
+const genreRoutes = require('./routes/genre.routes');
+const userRoutes = require('./routes/user.routes');
 
 dotenv.config();
 const app = express();
 
-/* --- Middlewares --- */
-app.use(cors()); 
-app.use(express.json()); 
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-/* --- Rutas --- */
-app.use('/api/media', mediaRoutes);
+// Rutas API
 app.use('/api/auth', authRoutes);
+app.use('/api/movies', movieRoutes);
+app.use('/api/genres', genreRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
-  res.send('¡El servidor Peli+ API está funcionando!');
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 
-/* --- Inicializadores --- */
+// Seed de roles
 async function initializeRoles() {
   try {
     const count = await Role.countDocuments();
     if (count > 0) return;
-    
+
     console.log('Creando roles por defecto...');
-    await Promise.all([
-      new Role({ name: 'visualizador' }).save(),
-      new Role({ name: 'admin' }).save()
-    ]);
+    await Role.insertMany([{ name: 'viewer' }, { name: 'admin' }]);
     console.log('Roles creados.');
   } catch (error) {
     console.error('Error roles:', error.message);
   }
 }
 
+// Seed de géneros
 async function initializeGenres() {
   try {
     const count = await Genre.countDocuments();
     if (count > 0) return;
-    
+
     console.log('Creando géneros por defecto...');
     const predefinedGenres = [
       { name: 'Acción' }, { name: 'Aventura' }, { name: 'Comedia' },
@@ -61,21 +67,20 @@ async function initializeGenres() {
   }
 }
 
-/* --- Arranque --- */
+// Arranque
 async function startServer() {
   try {
-    await connectDB(); 
-    await initializeRoles(); 
-    await initializeGenres(); 
+    await connectDB();
+    await initializeRoles();
+    await initializeGenres();
 
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en el puerto ${PORT}`);
     });
-
   } catch (error) {
     console.error('Fallo al arrancar:', error.message);
-    process.exit(1); 
+    process.exit(1);
   }
 }
 
