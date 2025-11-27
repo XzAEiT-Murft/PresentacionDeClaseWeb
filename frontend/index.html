@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peli+ | Bienvenido</title>
-    <!-- Fuentes de letras de Google Fonts -->
+    <title>Peli+ | Inicio</title>
+    
+    <!-- Fuentes de Google y Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- CDN de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS Local -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body data-bs-theme="dark">
 
+    <!-- ===== NAVBAR SUPERIOR (DESKTOP) ===== -->
     <nav class="navbar navbar-expand-md bg-body-tertiary top-navbar fixed-top">
         <div class="container-fluid">
-
+            
             <a class="navbar-brand" href="index.html">
                 <img src="img/logo.png" alt="Peli+ Logo" height="30">
             </a>
@@ -32,37 +33,35 @@
             <div class="collapse navbar-collapse" id="navbarNavDesktop">
                 <div class="d-flex align-items-center ms-auto">
                     <form class="d-flex me-3" action="search.html" method="GET">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar..."
-                            aria-label="Buscar" style="width: 300px;">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar..." aria-label="Buscar" style="width: 300px;">
                         <a href="search.html" class="btn btn-outline-secondary">
                             <i class="fa-solid fa-filter"></i>
                         </a>
                     </form>
-
+                    
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user-circle" style="font-size: 1.5rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#loginModal">Iniciar Sesión</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#registerModal">Registrarse</a></li>
+                            <li><a class="dropdown-item" href="login.html">Iniciar Sesión</a></li>
+                            <li><a class="dropdown-item" href="login.html">Registrarse</a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div> 
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <!-- ===== CONTENIDO PRINCIPAL (NUEVO) ===== -->
+    <div class="container-fluid"> <!-- Usamos 'fluid' para que el carrusel ocupe todo el ancho -->
+
+        <!-- 1. CARRUSEL TIPO PRIME VIDEO -->
         <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" id="carousel-inner-container">
+                <!-- Los slides se cargarán aquí con JS -->
                 <div class="carousel-item active">
-                    <div class="container">
-                        <p class="text-light">Cargando...</p>
-                    </div>
+                    <div class="container"><p class="text-light">Cargando...</p></div>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
@@ -73,11 +72,14 @@
             </button>
         </div>
 
+        <!-- 2. FILAS DE CATÁLOGO TIPO NETFLIX -->
         <div class="container mt-4" id="catalog-rows">
+            <!-- Las filas de categorías se cargarán aquí con JS -->
         </div>
 
     </div>
 
+    <!-- ===== NAVBAR INFERIOR (MÓVIL) ===== -->
     <nav class="navbar navbar-dark bg-dark bottom-navbar fixed-bottom">
         <a class="nav-link text-center text-white" href="index.html">
             <i class="fa-solid fa-house" style="font-size: 1.2rem;"></i>
@@ -87,109 +89,16 @@
             <i class="fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
             <small class="d-block">Buscar</small>
         </a>
-        <a class="nav-link text-center text-white" href="#">
+        <a class="nav-link text-center text-white" href="login.html">
             <i class="fa-solid fa-user" style="font-size: 1.2rem;"></i>
             <small class="d-block">Cuenta</small>
         </a>
     </nav>
 
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control bg-secondary text-white border-0" id="loginEmail"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control bg-secondary text-white border-0"
-                                id="loginPassword" required>
-                        </div>
-                        <div id="loginError" class="text-danger mb-3" style="display: none;"></div>
-                        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <small>¿Nuevo en Peli+? <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#registerModal">Regístrate aquí</a></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Crear Cuenta</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="registerForm">
-                        <div class="mb-3">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control bg-secondary text-white border-0" id="regName"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control bg-secondary text-white border-0" id="regEmail"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control bg-secondary text-white border-0"
-                                id="regPassword" required>
-                        </div>
-                        <div id="regError" class="text-danger mb-3" style="display: none;"></div>
-                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <small>¿Ya tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Inicia
-                                Sesión</a></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="verifyModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Verificar Cuenta</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Hemos enviado un código a tu correo. (Revisa la consola de Docker)</p>
-                    <form id="verifyForm">
-                        <div class="mb-3">
-                            <label class="form-label">Código de 6 dígitos</label>
-                            <input type="text" class="form-control bg-secondary text-white border-0 text-center fs-4"
-                                id="verifyCode" maxlength="6" required>
-                        </div>
-                        <div id="verifyError" class="text-danger mb-3" style="display: none;"></div>
-                        <button type="submit" class="btn btn-success w-100">Verificar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
+    <!-- Scripts -->
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/apiService.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/auth.js"></script> </body>
 </body>
-
 </html>

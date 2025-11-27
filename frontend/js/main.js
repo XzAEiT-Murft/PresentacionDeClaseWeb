@@ -1,8 +1,9 @@
+// Espera a que todo el HTML se cargue
 document.addEventListener('DOMContentLoaded', () => {
   const carouselContainer = document.getElementById('carousel-inner-container');
   const catalogRowsContainer = document.getElementById('catalog-rows');
 
-  // 1. Cargar datos
+  // Llama a la API para obtener todas las películas (Promise)
   getMovies()
     .then(movies => {
       if (movies.length === 0) {
@@ -68,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="col-6 col-md-4 col-lg-3">
         <div class="card h-100 shadow border-0" style="background-color: #2b2b2b; color: white;">
           
+          <!-- Imagen con efecto hover en CSS -->
           <div class="overflow-hidden rounded-top">
             <img src="${movie.poster_image_url}" class="card-img-top" alt="${movie.title}">
           </div>
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="badge bg-warning text-dark">${movie.year}</span>
             </div>
             
+            <!-- Mostramos el primer género si existe -->
             <p class="card-text small text-info mb-3">
                 ${movie.genres && movie.genres.length > 0 ? movie.genres[0].name : 'General'}
             </p>

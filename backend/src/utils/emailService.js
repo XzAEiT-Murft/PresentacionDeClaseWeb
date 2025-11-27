@@ -1,18 +1,19 @@
 const nodemailer = require('nodemailer');
 
-// Configuración del transporte (usando Gmail como ejemplo)
-// IMPORTANTE: Necesitas una "Contraseña de Aplicación" de Google, no tu contraseña normal.
+// Configuración del transporte
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'tucorreo@gmail.com', // CAMBIA ESTO
-    pass: 'tu_contraseña_de_aplicacion' // CAMBIA ESTO
+    // Leemos las credenciales desde las variables de entorno (.env)
+    // Esto es seguro para subir a GitHub
+    user: process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS 
   }
 });
 
 const sendVerificationEmail = async (to, code) => {
   const mailOptions = {
-    from: '"Soporte Peli+" <tucorreo@gmail.com>',
+    from: `"Soporte Peli+" <${process.env.EMAIL_USER}>`, // Usamos la variable aquí también
     to: to,
     subject: 'Verifica tu cuenta en Peli+',
     html: `
@@ -33,7 +34,6 @@ const sendVerificationEmail = async (to, code) => {
     console.log(`Correo de verificación enviado a ${to}`);
   } catch (error) {
     console.error('Error enviando correo:', error);
-    // No lanzamos error para no romper el registro, pero lo logueamos
   }
 };
 
