@@ -1,0 +1,113 @@
+/* frontend/css/admin.css */
+
+/* =========================================
+   ESTRUCTURA PRINCIPAL (LAYOUT)
+   ========================================= */
+body {
+    /* IMPORTANTE: Sobrescribimos el padding-top de 70px que tiene el sitio principal */
+    padding-top: 0 !important; 
+    background-color: #343a40; /* Fondo gris oscuro general */
+    min-height: 100vh;
+    display: flex; /* Layout flexible: Sidebar a la izq, Contenido a la der */
+    overflow-x: hidden; /* Evita scroll horizontal innecesario */
+}
+
+/* =========================================
+   BARRA LATERAL (SIDEBAR)
+   ========================================= */
+.sidebar {
+    min-width: 260px;
+    max-width: 260px;
+    background-color: #212529; /* Negro casi puro */
+    color: white;
+    min-height: 100vh; /* Altura completa */
+    padding: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
+    
+    /* Para que el botón de cerrar sesión se vaya al fondo */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Enlaces del Menú */
+.sidebar .nav-link {
+    color: #adb5bd; /* Gris claro */
+    font-weight: 500;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease; /* Transición suave */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sidebar .nav-link i {
+    width: 25px; /* Espacio fijo para iconos para que el texto se alinee */
+    text-align: center;
+}
+
+/* Efecto Hover y Activo */
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.active {
+    background-color: #dc3545; /* Rojo Peli+ (Bootstrap danger) */
+    color: white;
+    transform: translateX(5px); /* Pequeño desplazamiento a la derecha */
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+   ========================================= */
+.content {
+    flex-grow: 1; /* Ocupa el resto del ancho */
+    padding: 40px;
+    color: white;
+    height: 100vh; /* Altura completa de la ventana */
+    overflow-y: auto; /* Scroll independiente para esta zona */
+}
+
+/* Tarjetas contenedoras (Dashboard) */
+.card-dashboard {
+    background-color: #495057; /* Un gris intermedio */
+    border: none;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sombra suave */
+}
+
+/* =========================================
+   TABLA PERSONALIZADA (DARK)
+   ========================================= */
+.table-dark-custom {
+    background-color: #495057;
+    color: #e0e0e0;
+    margin-bottom: 0;
+}
+
+.table-dark-custom th {
+    background-color: #343a40; /* Encabezado más oscuro */
+    color: white;
+    border-bottom: 2px solid #6c757d;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.table-dark-custom td {
+    border-color: #6c757d; /* Líneas separadoras grises */
+    vertical-align: middle; /* Centrar contenido verticalmente */
+}
+
+/* Efecto al pasar el mouse por una fila */
+.table-dark-custom tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Botones de acción (Editar/Borrar) */
+.btn-sm {
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+.btn-sm:hover {
+    transform: scale(1.1); /* Efecto pop */
+}

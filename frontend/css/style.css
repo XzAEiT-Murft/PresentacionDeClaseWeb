@@ -1,40 +1,46 @@
-/* --- Configuración General --- */
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
 body {
   font-family: 'Roboto', sans-serif;
-  padding-top: 56px;
-  padding-bottom: 56px;
   background-color: #212529; /* Fondo oscuro base */
   color: white;
+  
+  /* IMPORTANTE: Compensamos el espacio de la barra fija superior */
+  padding-top: 70px; 
+  padding-bottom: 56px;
 }
 
-/* --- Navbars Responsivos --- */
-.bottom-navbar {
-  display: none;
-  justify-content: space-around; 
+/* =========================================
+   NAVBAR GLASSMORPHISM (EFECTO CRISTAL)
+   ========================================= */
+.navbar-glass {
+    background-color: rgba(0, 0, 0, 0.85) !important; /* Negro al 85% */
+    backdrop-filter: blur(10px); /* Desenfoque de fondo (Blur) */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea sutil */
+    transition: background-color 0.3s ease;
 }
 
-@media (max-width: 767.98px) {
-  body {
-    padding-top: 0; 
-    padding-bottom: 56px; 
-  }
-  .top-navbar {
-    display: none !important;
-  }
-  .bottom-navbar {
-    display: flex;
-  }
+.navbar-brand {
+    text-shadow: 0 0 10px rgba(220, 53, 69, 0.6); /* Brillo suave en el logo */
 }
 
-/* --- Carrusel Principal --- */
-#hero-carousel .carousel-item img {
-    height: 400px; 
+/* =========================================
+   CARRUSEL PRINCIPAL
+   ========================================= */
+/* Ajustamos la altura de las imágenes del carrusel */
+#mainCarousel .carousel-item img,
+#hero-carousel .carousel-item img { /* Soporte para ambos IDs por si acaso */
+    height: 500px; 
     object-fit: cover; 
     object-position: center top;
-    filter: brightness(0.7);
+    filter: brightness(0.8); /* Oscurece un poco para que el texto se lea bien */
 }
 
-/* --- Tarjetas de Películas (Grid) --- */
+/* =========================================
+   TARJETAS DE PELÍCULAS (GRID)
+   ========================================= */
 .card {
     background-color: transparent;
     border: none;
@@ -42,18 +48,90 @@ body {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Efecto zoom al pasar el mouse */
     cursor: pointer;
     z-index: 10;
 }
 
 .card-img-top {
-    height: 350px; /* Altura estandarizada para todas las carátulas */
+    height: 350px; /* Altura estándar para que la cuadrícula se vea ordenada */
     object-fit: cover;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .card-body {
     padding: 10px 0;
     color: #e0e0e0;
+}
+
+/* =========================================
+   PÁGINA DE DETALLES (ESTILO CINE)
+   ========================================= */
+
+/* 1. El contenedor gigante de la imagen de fondo */
+.movie-hero {
+    height: 80vh; /* Ocupa el 80% de la altura de la pantalla */
+    width: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    
+    /* TRUCO: Margen negativo para subir y quedar detrás del navbar */
+    margin-top: -70px; 
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* Alinea el contenido abajo */
+}
+
+/* 2. El degradado negro para que el texto sea legible */
+.overlay-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Degradado: Transparente arriba -> Fondo de la página abajo */
+    background: linear-gradient(to bottom, 
+        rgba(0,0,0,0.2) 0%, 
+        rgba(20,20,20,0.6) 50%, 
+        rgba(33, 37, 41, 1) 100%);
+    z-index: 1;
+}
+
+/* 3. El póster flotante */
+#movie-poster {
+    position: relative;
+    z-index: 2;
+    transform: translateY(30px); /* Lo baja un poco para romper la línea */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Ajustes de texto en la vista de detalle */
+#movie-title {
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+}
+
+#movie-synopsis {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+    max-width: 800px;
+}
+
+/* =========================================
+   RESPONSIVE (MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+    /* En móvil, el carrusel es más pequeño */
+    #mainCarousel .carousel-item img {
+        height: 300px;
+    }
+
+    /* En móvil, la sección Hero es más pequeña */
+    .movie-hero {
+        height: 60vh;
+        background-position: center center;
+    }
+    
+    /* Ocultamos el póster flotante en móvil para ahorrar espacio */
+    #movie-poster {
+        display: none;
+    }
 }

@@ -1,19 +1,15 @@
 version: '3.8'
 
 services:
-  # Servicio 1: Nuestra API del backend
   backend:
-    build: ./backend  # Le dice dónde encontrar el Dockerfile
+    build: ./backend
     container_name: peliplus_api
     ports:
-      - "3000:3000" # Mapea el puerto 3000 de tu PC al 3000 del contenedor
+      - "3000:3000"
     volumes:
-      # Sincroniza tu código local con el del contenedor
-      # Si cambias código en tu PC, se refleja en el contenedor (¡muy útil!)
       - ./backend:/usr/src/app
-      # Importante: Evita que la carpeta node_modules local reemplace
-      # la que se instaló DENTRO del contenedor.
-      - /usr/src/app/node_modules 
-    environment:
-      # Esta es la URL de conexión. 'mongo' es el nombre del servicio de abajo.
-      DB_URI: mongodb+srv://c0d3x5on_db_user:rcNL2fFdiloEMdZM@cluster0.9hgylfz.mongodb.net/?appName=Cluster0
+      - /usr/src/app/node_modules
+    # AQUÍ ESTÁ EL CAMBIO:
+    # Le decimos a Docker que cargue las variables desde tu archivo existente
+    env_file:
+      - ./backend/.env

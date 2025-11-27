@@ -4,101 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peli+ | Inicio</title>
-    
-    <!-- Fuentes de Google y Font Awesome -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Peli+ | Tu Streaming Favorito</title>
 
-    <!-- CSS Local -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-bs-theme="dark">
+<body class="bg-dark text-white">
 
-    <!-- ===== NAVBAR SUPERIOR (DESKTOP) ===== -->
-    <nav class="navbar navbar-expand-md bg-body-tertiary top-navbar fixed-top">
-        <div class="container-fluid">
-            
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo.png" alt="Peli+ Logo" height="30">
+    <nav class="navbar bg-black navbar-expand-lg navbar-dark fixed-top navbar-glass shadow-sm">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-danger fs-3" href="index.html">
+                PELI<span class="text-white">+</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDesktop">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNavDesktop">
-                <div class="d-flex align-items-center ms-auto">
-                    <form class="d-flex me-3" action="search.html" method="GET">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar..." aria-label="Buscar" style="width: 300px;">
-                        <a href="search.html" class="btn btn-outline-secondary">
-                            <i class="fa-solid fa-filter"></i>
-                        </a>
-                    </form>
-                    
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user-circle" style="font-size: 1.5rem;"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="login.html">Iniciar Sesión</a></li>
-                            <li><a class="dropdown-item" href="login.html">Registrarse</a></li>
-                        </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html">Películas</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+
+                    <div id="guest-nav">
+                        <a href="login.html" class="btn btn-outline-light me-2 btn-sm">Iniciar Sesión</a>
+                        <a href="register.html" class="btn btn-danger btn-sm">Registrarse</a>
                     </div>
-                </div> 
-            </div> 
-        </div>
-    </nav>
 
-    <!-- ===== CONTENIDO PRINCIPAL (NUEVO) ===== -->
-    <div class="container-fluid"> <!-- Usamos 'fluid' para que el carrusel ocupe todo el ancho -->
+                    <div id="user-nav" class="d-none d-flex align-items-center gap-3">
+                        <div class="text-end me-2 d-none d-md-block">
+                            <span class="d-block text-white small">Hola,</span>
+                            <span class="fw-bold text-warning" id="user-name-display">Cinéfilo</span>
+                        </div>
 
-        <!-- 1. CARRUSEL TIPO PRIME VIDEO -->
-        <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carousel-inner-container">
-                <!-- Los slides se cargarán aquí con JS -->
-                <div class="carousel-item active">
-                    <div class="container"><p class="text-light">Cargando...</p></div>
+                        <a href="admin.html" id="admin-btn" class="btn btn-outline-warning btn-sm d-none">
+                            <i class="fa-solid fa-crown"></i> Admin
+                        </a>
+
+                        <button onclick="logout()" class="btn btn-dark btn-sm border-secondary">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
         </div>
-
-        <!-- 2. FILAS DE CATÁLOGO TIPO NETFLIX -->
-        <div class="container mt-4" id="catalog-rows">
-            <!-- Las filas de categorías se cargarán aquí con JS -->
-        </div>
-
-    </div>
-
-    <!-- ===== NAVBAR INFERIOR (MÓVIL) ===== -->
-    <nav class="navbar navbar-dark bg-dark bottom-navbar fixed-bottom">
-        <a class="nav-link text-center text-white" href="index.html">
-            <i class="fa-solid fa-house" style="font-size: 1.2rem;"></i>
-            <small class="d-block">Inicio</small>
-        </a>
-        <a class="nav-link text-center text-white" href="search.html">
-            <i class="fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
-            <small class="d-block">Buscar</small>
-        </a>
-        <a class="nav-link text-center text-white" href="login.html">
-            <i class="fa-solid fa-user" style="font-size: 1.2rem;"></i>
-            <small class="d-block">Cuenta</small>
-        </a>
     </nav>
 
-    
-    <!-- Scripts -->
+    <div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carousel-inner-container">
+            <div class="text-center py-5">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <div class="container mb-5">
+        <div id="catalog-rows">
+            <div class="text-center py-5">
+                <p class="text-muted">Cargando catálogo...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-center text-white-50 py-4 mt-auto border-top border-secondary">
+        <div class="container">
+            <p class="mb-1">&copy; 2025 Peli+. Todos los derechos reservados.</p>
+            <small>Hecho para la clase de Páginas Web</small>
+        </div>
+    </footer>
+
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <script src="js/apiService.js"></script>
+
     <script src="js/main.js"></script>
 </body>
+
 </html>
