@@ -16,20 +16,4 @@ services:
       - /usr/src/app/node_modules 
     environment:
       # Esta es la URL de conexión. 'mongo' es el nombre del servicio de abajo.
-      DB_URI: mongodb://mongo:27017/peliplus
-    depends_on:
-      - mongo # Le dice que no inicie 'backend' hasta que 'mongo' esté listo
-
-  # Servicio 2: Nuestra Base de Datos MongoDB
-  mongo:
-    image: mongo:7.0  # Usamos la imagen oficial de Mongo (v7 es muy estable)
-    container_name: peliplus_db
-    ports: 
-      - "27017:27017" # Puerto estándar de MongoDB
-    volumes:
-      # Esto "persiste" los datos. Si apagas el contenedor, 
-      # tus datos no se borran, quedan guardados en un volumen llamado 'mongo-data'.
-      - mongo-data:/data/db 
-
-volumes:
-  mongo-data: # Aquí se define el volumen
+      DB_URI: mongodb+srv://c0d3x5on_db_user:rcNL2fFdiloEMdZM@cluster0.9hgylfz.mongodb.net/?appName=Cluster0
