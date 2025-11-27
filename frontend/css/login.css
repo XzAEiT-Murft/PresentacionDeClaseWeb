@@ -1,0 +1,44 @@
+/* Estilos específicos para la página de login */
+body {
+    /* Asegúrate de que la ruta a la imagen sea correcta desde la carpeta css/ */
+    /* Como style.css está en css/, debemos subir un nivel (../) para ir a img/ */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/posters/pulp-fiction.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 0 !important; /* Sobrescribe el padding del style.css general */
+    margin: 0; /* Asegura que no haya márgenes por defecto */
+}
+
+.auth-card {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Estilos adicionales para inputs y botones si es necesario */
+.form-control {
+    background-color: #333;
+    border: none;
+    color: white;
+}
+.form-control:focus {
+    background-color: #444;
+    color: white;
+    border-color: #e50914;
+    box-shadow: none;
+}
+.btn-primary {
+    background-color: #e50914; /* Rojo Netflix */
+    border: none;
+    font-weight: bold;
+}
+.btn-primary:hover {
+    background-color: #b20710;
+}

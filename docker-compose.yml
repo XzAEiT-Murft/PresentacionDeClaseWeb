@@ -24,7 +24,7 @@ services:
   mongo:
     image: mongo:7.0  # Usamos la imagen oficial de Mongo (v7 es muy estable)
     container_name: peliplus_db
-    ports:
+    ports: 
       - "27017:27017" # Puerto estándar de MongoDB
     volumes:
       # Esto "persiste" los datos. Si apagas el contenedor, 

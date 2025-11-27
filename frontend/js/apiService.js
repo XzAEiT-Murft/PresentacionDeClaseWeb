@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3000/api';
  */
 async function getMovies() {
   try {
-    const response = await fetch(`${API_URL}/movies`);
+    const response = await fetch(`${API_URL}/media`);
     
     if (!response.ok) {
       throw new Error('No se pudieron cargar las películas.');
@@ -79,6 +79,27 @@ async function register(name, email, password) {
 
   } catch (error) {
     console.error('Error en register:', error);
+    return { error: error.message };
+  }
+}
+
+/**
+ * Función para Verificar cuenta (Ruta Pública)
+ */
+async function verifyAccount(email, code) {
+  try {
+    const response = await fetch(`${API_URL}/auth/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Error al verificar');
+    return data;
+
+  } catch (error) {
+    console.error('Error en verify:', error);
     return { error: error.message };
   }
 }

@@ -1,9 +1,8 @@
-// Espera a que todo el HTML se cargue
 document.addEventListener('DOMContentLoaded', () => {
   const carouselContainer = document.getElementById('carousel-inner-container');
   const catalogRowsContainer = document.getElementById('catalog-rows');
 
-  // Llama a la API para obtener todas las películas (Promise)
+  // 1. Cargar datos
   getMovies()
     .then(movies => {
       if (movies.length === 0) {
@@ -11,33 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       
-      // 1. Llena el carrusel (con las primeras 3 películas)
-      populateCarousel(movies.slice(0, 3));
+      // A. Llenar el Carrusel (Usamos las 3 más nuevas para que se vea fresco)
+      // Ordenamos por año descendente primero
+      const sortedMovies = [...movies].sort((a, b) => b.year - a.year);
+      populateCarousel(sortedMovies.slice(0, 3));
       
-      // 2. Llena las filas de Netflix
-      populateCatalogRows(movies);
-      
+      // B. Llenar la Cuadrícula Principal (Sin repetir categorías)
+      populateMainGrid(sortedMovies);
     })
     .catch(error => {
-      console.error('Error al cargar la página principal:', error);
-      catalogRowsContainer.innerHTML = '<p class="text-danger">Error al cargar el contenido.</p>';
+      console.error('Error:', error);
+      catalogRowsContainer.innerHTML = '<p class="text-danger">Error al cargar contenido.</p>';
     });
 
-  /**
-   * Crea el HTML del Carrusel (Prime Video style)
-   */
+  // --- FUNCIÓN CARRUSEL ---
   function populateCarousel(carouselMovies) {
-    carouselContainer.innerHTML = ''; // Limpia el "Cargando..."
+    carouselContainer.innerHTML = ''; 
     
     carouselMovies.forEach((movie, index) => {
-      const isActive = index === 0 ? 'active' : ''; // Solo el primer slide es 'active'
+      const isActive = index === 0 ? 'active' : '';
       const itemHtml = `
         <div class="carousel-item ${isActive}">
-          <img src="${movie.poster_image_url}" class="d-block w-100" alt="${movie.title}" style="max-height: 500px; object-fit: cover; filter: brightness(0.6);">
-          <div class="carousel-caption d-none d-md-block text-start" style="bottom: 3rem;">
-            <h1>${movie.title}</h1>
-            <p>${movie.synopsis.substring(0, 150)}...</p>
-            <a href="#" class="btn btn-primary btn-lg">Ver ahora</a>
+          <img src="${movie.poster_image_url}" class="d-block w-100" alt="${movie.title}">
+          <div class="carousel-caption d-none d-md-block text-start">
+            <h1 class="fw-bold" style="text-shadow: 2px 2px 4px #000;">${movie.title}</h1>
+            <p class="lead" style="text-shadow: 1px 1px 2px #000;">${movie.synopsis.substring(0, 120)}...</p>
+            <a href="detalle.html?id=${movie._id}" class="btn btn-primary btn-lg shadow">Ver ahora</a>
           </div>
         </div>
       `;
@@ -45,53 +43,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /**
-   * Crea las filas de categorías (Netflix style)
-   */
-  function populateCatalogRows(allMovies) {
-    catalogRowsContainer.innerHTML = ''; // Limpia el contenedor
+  // --- FUNCIÓN GRID ÚNICA (Limpia y ordenada) ---
+  function populateMainGrid(allMovies) {
+    catalogRowsContainer.innerHTML = ''; 
 
-    // --- Lógica de Filtros (¡Aquí puedes ser creativo!) ---
-    const dramaMovies = allMovies.filter(m => m.genres.includes('Drama'));
-    const crimeMovies = allMovies.filter(m => m.genres.includes('Crimen'));
+    // Título de la sección
+    catalogRowsContainer.innerHTML += `<h3 class="mt-5 mb-4 border-bottom border-secondary pb-2">Explora nuestro catálogo</h3>`;
     
-    const categories = [
-      { title: 'Recomendadas para ti', movies: allMovies }, // Fila con todas
-      { title: 'Dramas', movies: dramaMovies },
-      { title: 'Crimen', movies: crimeMovies }
-    ];
-
-    // Recorremos las categorías y creamos el HTML
-    categories.forEach(category => {
-      if (category.movies.length > 0) {
-        // 1. Crea el título de la fila (ej: "Dramas")
-        catalogRowsContainer.innerHTML += `<h3 class="mt-4">${category.title}</h3>`;
-        
-        // 2. Crea el div para el scroll horizontal
-        const rowScrollDiv = document.createElement('div');
-        rowScrollDiv.className = 'movie-row-scroll';
-        
-        // 3. Llena la fila con las tarjetas de películas
-        category.movies.forEach(movie => {
-          rowScrollDiv.innerHTML += createHorizontalMovieCard(movie);
-        });
-
-        // 4. Añade la fila completa al contenedor
-        catalogRowsContainer.appendChild(rowScrollDiv);
-      }
+    // Creamos el contenedor "row"
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'row g-4'; // g-4 da un espaciado uniforme
+    
+    allMovies.forEach(movie => {
+      rowDiv.innerHTML += createGridCard(movie);
     });
+
+    catalogRowsContainer.appendChild(rowDiv);
   }
 
-  /**
-   * Crea el HTML para una tarjeta de película HORIZONTAL
-   */
-  function createHorizontalMovieCard(movie) {
+  // --- HTML DE LA TARJETA (GRID 4 por fila) ---
+  function createGridCard(movie) {
+    // col-6 (2 en móvil), col-md-4 (3 en tablet), col-lg-3 (4 en desktop)
     return `
-      <div class.card movie-card-inline" style="width: 220px;">
-        <img src="${movie.poster_image_url}" class="card-img-top" alt="${movie.title}" style="height: 300px; object-fit: cover;">
-        <div class="card-body">
-          <h6 class="card-title text-truncate">${movie.title}</h6>
-          <p class="card-text small text-body-secondary">${movie.year}</p>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow border-0" style="background-color: #2b2b2b; color: white;">
+          
+          <div class="overflow-hidden rounded-top">
+            <img src="${movie.poster_image_url}" class="card-img-top" alt="${movie.title}">
+          </div>
+          
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title text-truncate m-0" title="${movie.title}">${movie.title}</h5>
+                <span class="badge bg-warning text-dark">${movie.year}</span>
+            </div>
+            
+            <p class="card-text small text-info mb-3">
+                ${movie.genres && movie.genres.length > 0 ? movie.genres[0].name : 'General'}
+            </p>
+
+            <a href="detalle.html?id=${movie._id}" class="btn btn-outline-light btn-sm w-100 mt-auto stretched-link">
+                <i class="fa-solid fa-play"></i> Ver Detalles
+            </a>
+          </div>
         </div>
       </div>
     `;

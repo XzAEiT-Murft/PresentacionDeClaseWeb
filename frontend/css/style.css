@@ -1,15 +1,13 @@
-/* --- Fuentes y Padding Global --- */
+/* --- Configuración General --- */
 body {
   font-family: 'Roboto', sans-serif;
-  
-  /* ¡IMPORTANTE! 
-    Añade estos paddings. Son el espacio para los navbars fijos.
-  */
-  padding-top: 56px;     /* Espacio para el navbar superior (desktop) */
-  padding-bottom: 56px;  /* Espacio para el navbar inferior (móvil) */
+  padding-top: 56px;
+  padding-bottom: 56px;
+  background-color: #212529; /* Fondo oscuro base */
+  color: white;
 }
 
-/* --- Lógica de Navbars (Esto ya lo tenías bien) --- */
+/* --- Navbars Responsivos --- */
 .bottom-navbar {
   display: none;
   justify-content: space-around; 
@@ -17,7 +15,7 @@ body {
 
 @media (max-width: 767.98px) {
   body {
-    padding-top: 0; /* Sin padding superior en móvil */
+    padding-top: 0; 
     padding-bottom: 56px; 
   }
   .top-navbar {
@@ -28,22 +26,34 @@ body {
   }
 }
 
-/* --- ¡NUEVO! ESTILOS PARA FILAS TIPO NETFLIX --- 
-*/
-
-/* El contenedor de la fila que se desborda */
-.movie-row-scroll {
-  overflow-x: auto;     /* Permite el scroll horizontal */
-  overflow-y: hidden;
-  white-space: nowrap;  /* Evita que las tarjetas salten a la línea de abajo */
-  padding-bottom: 1rem; /* Da un poco de espacio */
+/* --- Carrusel Principal --- */
+#hero-carousel .carousel-item img {
+    height: 400px; 
+    object-fit: cover; 
+    object-position: center top;
+    filter: brightness(0.7);
 }
 
-/* La tarjeta individual dentro de la fila */
-.movie-card-inline {
-  display: inline-block; /* Coloca las tarjetas una al lado de la otra */
-  width: 220px;          /* Un ancho fijo para cada tarjeta */
-  margin-right: 10px;
-  white-space: normal;   /* Restaura el texto normal dentro de la tarjeta */
-  vertical-align: top;   /* Alinea las tarjetas por arriba */
+/* --- Tarjetas de Películas (Grid) --- */
+.card {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.card-img-top {
+    height: 350px; /* Altura estandarizada para todas las carátulas */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-body {
+    padding: 10px 0;
+    color: #e0e0e0;
 }
