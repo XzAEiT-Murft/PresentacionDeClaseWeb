@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-const registerController = require('../controllers/registerController.js');
-const loginController = require('../controllers/loginController.js');
-const verificationController = require('../controllers/verificationController.js');
+// Importamos el controlador CORRECTO para las películas
+const mediaController = require('../controllers/mediaController'); 
 
-/* --- Definición de Rutas --- */
-router.post('/register', registerController.registerUser);
-router.post('/login', loginController.loginUser);
-router.post('/verify', verificationController.verifyUser);
-router.post('/resend-code', verificationController.resendVerificationCode);
+// GET /api/media -> Obtener todas las películas (para la tabla)
+router.get('/', mediaController.getAllMedia);
+
+// POST /api/media -> Crear una nueva película (para tu formulario)
+router.post('/', mediaController.createMedia);
+
+// PUT /api/media/:id -> Actualizar una película
+router.put('/:id', mediaController.updateMedia);
+
+// DELETE /api/media/:id -> Eliminar una película
+router.delete('/:id', mediaController.deleteMedia);
+
+// GET /api/media/:id -> Ver detalle de una sola
+router.get('/:id', mediaController.getMediaById);
 
 module.exports = router;

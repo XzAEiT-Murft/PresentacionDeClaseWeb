@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); //es la reoresentacion en la base de datos de mongose para nuestro java Script
 const { Schema } = mongoose;
 
 /* --- Esquema de Episodios (Series) --- */
